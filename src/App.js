@@ -1,54 +1,19 @@
-import React, { useEffect } from "react";
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import ProductList from "./components/ProductList"
+import 'sanitize.css'
+
+const client = new ApolloClient({
+  uri: 'http://localhost:3001/',
+  cache: new InMemoryCache()
+});
 
 function App() {
-  //API First test
-  useEffect(() => {
-    const api = "http://localhost:3001/"
-    const query = `
-      query{
-        allSkus{
-          id
-        }
-      }
-    `
-
-    const options = {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({
-        query: query,
-      })
-    }
-
-    fetch(api, options)
-      .then(data => data.json())
-      .then(data => console.log(data))
-
-  })
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <ProductList />
+    </ApolloProvider>
   );
 }
 
-export default App;
+export default App
