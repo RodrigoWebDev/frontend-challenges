@@ -8,7 +8,17 @@ import React from "react"
 import Row from "./Row"
 import Col from "./Col"
 
-const Product = ({ productInfo }) => {
+interface productInfoIterface {
+  productInfo: {
+    id: string
+    name: string
+    imageUrl: string
+    salePrice: number
+    promotionalPrice: number
+  }
+}
+
+const Product = ({ productInfo }: productInfoIterface) => {
 
   const { name, imageUrl, salePrice, promotionalPrice } = productInfo
 

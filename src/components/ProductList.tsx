@@ -1,6 +1,14 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { useQuery, gql } from '@apollo/client'
 import Product from "./Product"
+
+interface allSkusInterface {
+  id: string
+  name: string
+  imageUrl: string
+  salePrice: number
+  promotionalPrice: number
+}
 
 const productListData = gql`
   query GetAllSKUs{
@@ -17,21 +25,19 @@ const productListData = gql`
 const ProductList = () => {
   const { loading, error, data } = useQuery(productListData)
 
-  useEffect(() => {
-    console.log(loading)
-    console.log(error)
-    console.log(data)
-  }, [])
-
-  if (loading) return <p>Loading...</p>
-  if (error) return <p>Error :(</p>
+  if (loading) {
+    return <p>Loading...</p>
+  }
+  if (error) {
+    return <p>Error :(</p>
+  }
 
   return (
     <div className="product-list">
       <h1>Produtos</h1>
       <ul>
         {
-          data.allSkus.map((item) =>
+          data.allSkus.map((item: allSkusInterface) =>
             <Product
               key={item.id}
               productInfo={item}
