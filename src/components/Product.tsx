@@ -5,6 +5,7 @@
 */
 
 import React from "react"
+import ProductPrice from "./ProductPrice"
 import Row from "./Row"
 import Col from "./Col"
 
@@ -30,7 +31,7 @@ const Product = ({ productInfo }: productInfoIterface) => {
         </Col>
         <Col width="80%">
           <h2>{name}</h2>
-          <div>1x R${salePrice} por R${promotionalPrice}</div>
+          <div>1x <ProductPrice lineThrough={true} price={salePrice} /> por <ProductPrice price={promotionalPrice} /></div>
         </Col>
       </Row>
     </li>
